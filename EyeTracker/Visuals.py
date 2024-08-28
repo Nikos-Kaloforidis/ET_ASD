@@ -113,5 +113,5 @@ def createImage(x_movement, y_movement, speed_cap, accel_cap, jerk_cap):
 
     plt.gca().invert_yaxis()
 
-    plt.savefig("test_image.png")
+    plt.savefig("./Misc/test_image.png")
     plt.show()

@@ -1,9 +1,9 @@
 import EyeTracker.EyeTrackerDataCollect as dc
-from EyeTracker import Formulas, Visuals
 import cv2 as cv
 import mediapipe as mp
 import numpy as np
-from matplotlib import pyplot as plt
+
+from EyeTracker import Formulas, Visuals, Calibration
 from joblib import load
 from PIL import Image
 
@@ -23,14 +23,14 @@ faceMesh = mp.solutions.face_mesh.FaceMesh(refine_landmarks=True)
 
 print("Calibrating Eye Tracker...")
 Visuals.start_window()
-tranform_matrix = dc.calibrate_eye_tracker(cam, faceMesh)
+tranform_matrix = Calibration.calibrate_eye_tracker(cam, faceMesh)
 print("Generated Transform Matrix: ", tranform_matrix)
 
 cv.waitKey(2000)
 
 # Opens video for testing the subject
 print("Opening Video...")
-video = cv.VideoCapture("test_video.mp4")
+video = cv.VideoCapture("Misc/test_video.mp4")
 
 if not video.isOpened():
     print("Error opening video!")
@@ -80,7 +80,7 @@ jerk_capped = [0, 0] + jerk_capped
 
 
 print("\nCreating image from data...")
-dc.createImage(x_valid, y_valid, speed_capped, acceleration_capped, jerk_capped)
+Visuals.createImage(x_valid, y_valid, speed_capped, acceleration_capped, jerk_capped)
 
 
 def preproccess(image):
@@ -106,7 +106,7 @@ def preproccess(image):
     return flatten
 
 
-img = Image.open("test_image.png")
+img = Image.open("Misc/test_image.png")
 print("Image loaded!")
 
 image = preproccess(img)
@@ -114,12 +114,13 @@ print("Image preproccesed!")
 
 image = image.reshape(1, -1)
 
-model = load("random_forest_model.joblib")
+model = load("Model/random_forest_model.pkl")
 print("Model loaded!")
 
 predict = model.predict(image)
-proba = model.predict_proba(image)
-proba = np.array(proba)
+# proba = model.predict_proba(image)
+# proba = np.array(proba)
+proba = 1
 
 print("=============================================================")
 print("\t\tPrediction: ", predict, "\n\t\tProbability: ", np.max(proba))

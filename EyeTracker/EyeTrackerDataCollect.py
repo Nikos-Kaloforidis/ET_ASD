@@ -1,15 +1,9 @@
 import cv2 as cv
-import mediapipe as mp
 import numpy as np
-import matplotlib.pyplot as plt
-import pyautogui
+
 from . import Visuals
 
 gaze_coordinates = []
-
-
-def track_eyes():
-    pass
 
 
 # Transforms the gaze to screen coordinates

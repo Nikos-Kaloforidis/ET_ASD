@@ -1,2 +1,6 @@
-venv/
+projectvenv/
 Dataset/
+Misc/test_video.mp4
+Misc/test_image.png
+EyeTracker/__pycache__
+venv/

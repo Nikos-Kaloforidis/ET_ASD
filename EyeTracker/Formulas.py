@@ -25,20 +25,18 @@ def calcValidPoints(x_movement, y_movement, num_points):
     return x_valid, y_valid
 
 
-# This function will calculate  the cap as  a quarter of the diagonal of the screen as indicated
-# to the dataset
+# Calculates  the cap as  a quarter of the diagonal of the screen
 def calculateCap(screen_width, screen_height):
     diagonal_length = np.sqrt(screen_width**2 + screen_height**2)
     cap = diagonal_length / 4
     return cap
 
 
-# This function will normalize a value to a cap and  makes sure to not be above 1
 def normalizeToCap(value, cap):
     return min(value / cap, 1.0)
 
 
-# This function calculates speed by calculating the euclidian distance of 2 points and then
+# Calculates speed  with the euclidian distance of 2 consecutive points and then
 # divide it by time_frame which is the time between 2 frames
 def calculate_speed(x_movement, y_movement, time_frame):
     speed_of_gaze = []
@@ -58,7 +56,7 @@ def calculate_speed(x_movement, y_movement, time_frame):
     return speed_of_gaze
 
 
-# This  function will calculate the acceleration as the  derivative of speed
+# Calculates the acceleration as the  derivative of speed
 def calculate_acceleration(speed_of_gaze, time_frame):
     acceleration_of_gaze = []
     for i in range(1, len(speed_of_gaze)):
@@ -69,7 +67,7 @@ def calculate_acceleration(speed_of_gaze, time_frame):
     return acceleration_of_gaze
 
 
-# This  function will calculate the jerk  as the  derivative of acceleration
+# Calculates the jerk  as the  derivative of acceleration
 def calculate_jerk(acceleration_of_gaze, time_frame):
     jerk_of_gaze = []
 
